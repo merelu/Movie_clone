@@ -2,9 +2,9 @@ import GridCards from "@components/GridCards";
 import { IMovie } from "@typings/db";
 import { Row } from "antd";
 import axios from "axios";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "src/config";
-import MainImage from "./Sections/MainImage/MainImage";
+import MainImage from "@components/MainImage";
 
 function LandingPage() {
   const [movies, setMovies] = useState<IMovie[]>([]);
