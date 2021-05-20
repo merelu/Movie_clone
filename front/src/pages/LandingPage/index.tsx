@@ -2,7 +2,7 @@ import GridCards from "@components/GridCards";
 import { IMovie } from "@typings/db";
 import { Row } from "antd";
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "src/config";
 import MainImage from "./Sections/MainImage/MainImage";
 
@@ -12,6 +12,7 @@ function LandingPage() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const LoadMoreItems = useCallback(() => {
+    console.log("load");
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
       currentPage + 1
     }`;
@@ -19,10 +20,25 @@ function LandingPage() {
     response.then((response) => {
       console.log(response.data);
       setMovies((prev) => prev.concat(response.data.results));
-      setCurrentPage(response.data.page);
+      setCurrentPage((prev) => prev + 1);
     });
   }, [currentPage]);
 
+  const infiniteScroll = useCallback(() => {
+    let scrollHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+    let scrollTop = Math.max(
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+    let clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      LoadMoreItems();
+    }
+  }, [LoadMoreItems]);
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     const response = axios.get(endpoint);
@@ -34,10 +50,16 @@ function LandingPage() {
     });
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("scroll", infiniteScroll);
+    return () => window.removeEventListener("scroll", infiniteScroll);
+  }, [infiniteScroll]);
+
   return (
     <div>
       <div style={{ width: "100%", margin: "0" }}>
         {/* Main Image */}
+
         {mainMovie && (
           <MainImage
             image={`${IMAGE_BASE_URL}w1280${mainMovie.backdrop_path}`}
@@ -65,10 +87,6 @@ function LandingPage() {
                 </React.Fragment>
               ))}
           </Row>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={LoadMoreItems}>Load More</button>
         </div>
       </div>
     </div>
