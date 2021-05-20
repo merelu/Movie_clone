@@ -16,8 +16,7 @@ function LandingPage() {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
       currentPage + 1
     }`;
-    const response = axios.get(endpoint);
-    response.then((response) => {
+    axios.get(endpoint).then((response) => {
       console.log(response.data);
       setMovies((prev) => prev.concat(response.data.results));
       setCurrentPage((prev) => prev + 1);
@@ -41,8 +40,7 @@ function LandingPage() {
   }, [LoadMoreItems]);
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    const response = axios.get(endpoint);
-    response.then((response) => {
+    axios.get(endpoint).then((response) => {
       console.log(response.data);
       setMovies((prev) => prev.concat(response.data.results));
       setCurrentPage(response.data.page);
