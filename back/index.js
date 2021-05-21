@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 const userRouter = require("./routes/user");
+const favoriteRouter = require("./routes/favorite");
 const app = express();
 mongoose
   .connect(config.mongoURI, {
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/users", userRouter);
+app.use("/api/favorite", favoriteRouter);
 
 app.use("/uploads", express.static("uploads"));
 
