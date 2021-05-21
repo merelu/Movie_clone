@@ -77,10 +77,11 @@ function LandingPage() {
                     image={
                       movie.poster_path
                         ? `${IMAGE_BASE_URL}w500${movie.poster_path}`
-                        : ""
+                        : "/img/image-not-found-fix.jpg"
                     }
-                    movieId={movie.id}
-                    movieName={movie.original_title}
+                    contentId={movie.id}
+                    contentName={movie.original_title}
+                    content="movie"
                   />
                 </React.Fragment>
               ))}
