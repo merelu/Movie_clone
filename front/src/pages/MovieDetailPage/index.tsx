@@ -1,3 +1,4 @@
+import FavoriteButton from "@components/FavoriteButton";
 import GridCards from "@components/GridCards";
 import MainImage from "@components/MainImage";
 import MovieInfoTable from "@components/MovieInfoTable";
@@ -44,11 +45,9 @@ function MovieDetailPage() {
       )}
       {/* Body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button type="primary" ghost>
-            Favorite
-          </Button>
-        </div>
+        {movieInfo && (
+          <FavoriteButton movieInfo={movieInfo} movieId={movieId} />
+        )}
         {/* Movie Info */}
         {movieInfo && <MovieInfoTable movieInfo={movieInfo} />}
         <br />
