@@ -1,3 +1,5 @@
+import { number } from "yup/lib/locale";
+
 export interface IUser {
   _id?: string;
   isAuth?: boolean;
@@ -75,4 +77,19 @@ export interface ISpokenLanguage {
   english_name: string;
   iso_639_1: string;
   name: string;
+}
+
+export interface IMovieActor {
+  adult: boolean;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  order: number;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
 }
