@@ -48,4 +48,11 @@ router.delete("/removeFromFavorite", (req, res) => {
   });
 });
 
+router.get("/favoriteMovies/userId/:userId", (req, res) => {
+  Favorite.find({ userFrom: req.params.userId }).exec((err, favorites) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).json({ success: true, favorites });
+  });
+});
+
 module.exports = router;
