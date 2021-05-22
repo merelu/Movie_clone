@@ -93,3 +93,13 @@ export interface IMovieActor {
   popularity: number;
   profile_path: string;
 }
+
+export interface IFavorite {
+  createdAt: string;
+  movieId: number;
+  moviePost: string;
+  movieRunTime: string;
+  movieTitle: string;
+  updatedAt: string;
+  userFrom: string;
+}
