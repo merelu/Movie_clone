@@ -46,7 +46,11 @@ function MovieDetailPage() {
       {/* Body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         {movieInfo && (
-          <FavoriteButton movieInfo={movieInfo} movieId={movieId} />
+          <FavoriteButton
+            userFrom={localStorage.getItem("userId")}
+            movieInfo={movieInfo}
+            movieId={movieId}
+          />
         )}
         {/* Movie Info */}
         {movieInfo && <MovieInfoTable movieInfo={movieInfo} />}
