@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "src/config";
 import MainImage from "@components/MainImage";
+import { LandingPageContainer, ContentContainer } from "./styles";
 
 function LandingPage() {
   const [movies, setMovies] = useState<IMovie[]>([]);
@@ -55,7 +56,7 @@ function LandingPage() {
 
   return (
     <div>
-      <div style={{ width: "100%", margin: "0" }}>
+      <LandingPageContainer>
         {/* Main Image */}
 
         {mainMovie && (
@@ -65,7 +66,7 @@ function LandingPage() {
             text={mainMovie.overview}
           />
         )}
-        <div style={{ width: "85%", margin: "1rem auto" }}>
+        <ContentContainer>
           <h2>Movies by latest</h2>
           <hr />
           {/* Movie Grid Cards */}
@@ -86,8 +87,8 @@ function LandingPage() {
                 </React.Fragment>
               ))}
           </Row>
-        </div>
-      </div>
+        </ContentContainer>
+      </LandingPageContainer>
     </div>
   );
 }
