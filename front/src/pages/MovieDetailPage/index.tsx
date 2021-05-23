@@ -2,12 +2,14 @@ import FavoriteButton from "@components/FavoriteButton";
 import GridCards from "@components/GridCards";
 import MainImage from "@components/MainImage";
 import MovieInfoTable from "@components/MovieInfoTable";
+import { ContentContainer } from "@pages/LandingPage/styles";
 import { IMoveInfo, IMovieActor } from "@typings/db";
 import { Button, Row } from "antd";
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "src/config";
+import { ToggleButtonWrap } from "./styles";
 
 function MovieDetailPage() {
   const { movieId } = useParams<{ movieId: string }>();
@@ -44,7 +46,7 @@ function MovieDetailPage() {
         />
       )}
       {/* Body */}
-      <div style={{ width: "85%", margin: "1rem auto" }}>
+      <ContentContainer>
         {movieInfo && (
           <FavoriteButton
             userFrom={localStorage.getItem("userId")}
@@ -56,16 +58,14 @@ function MovieDetailPage() {
         {movieInfo && <MovieInfoTable movieInfo={movieInfo} />}
         <br />
 
-        <div
-          style={{ display: "flex", justifyContent: "center", margin: "2rem" }}
-        >
+        <ToggleButtonWrap>
           <Button type="primary" shape="round" onClick={toggleActorViewButton}>
             Toggle Actor view
           </Button>
-        </div>
+        </ToggleButtonWrap>
 
         {viewActor ? (
-          <div style={{ width: "85%", margin: "1rem auto" }}>
+          <ContentContainer>
             <h2>Actors</h2>
             <hr />
             <Row gutter={[16, 16]}>
@@ -85,11 +85,11 @@ function MovieDetailPage() {
                   </React.Fragment>
                 ))}
             </Row>
-          </div>
+          </ContentContainer>
         ) : (
           <br />
         )}
-      </div>
+      </ContentContainer>
     </div>
   );
 }
