@@ -1,12 +1,28 @@
 import { IFavorite } from "@typings/db";
 import { Button } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FavoriteTable, Favoritetd, Favoriteth, Favoritetr } from "./styles";
 import { Popover } from "antd";
 import { IMAGE_BASE_URL } from "src/config";
 function FavoritePage() {
   const [favorites, setFavorites] = useState<IFavorite[]>([]);
+  const onClickDelete = useCallback((movieId, userFrom) => {
+    axios
+      .delete(`/api/favorite/removeFromFavorite`, {
+        data: {
+          movieId,
+          userFrom,
+        },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setFavorites((prev) => prev.filter((v) => v.movieId !== movieId));
+        } else {
+          alert("favorite item을 삭제하는데 실패했습니다.");
+        }
+      });
+  }, []);
 
   useEffect(() => {
     axios
@@ -44,7 +60,11 @@ function FavoritePage() {
         </Popover>
         <Favoritetd>{favorite.movieRunTime} mins</Favoritetd>
         <Favoritetd>
-          <Button type="primary" ghost>
+          <Button
+            type="primary"
+            ghost
+            onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}
+          >
             Remove
           </Button>
         </Favoritetd>
