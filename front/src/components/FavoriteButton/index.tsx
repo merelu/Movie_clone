@@ -61,8 +61,8 @@ function FavoriteButton({
     axios
       .get(`/api/favorite/favoriteNumber/movieId/${movieId}`)
       .then((response) => {
-        setFavoriteNumber(response.data.favoriteNumber);
         if (response.data.success) {
+          setFavoriteNumber(response.data.favoriteNumber);
         } else {
           alert("숫자 정보를 가져오는데 실패 했습니다.");
         }
@@ -76,7 +76,7 @@ function FavoriteButton({
           alert("정보를 가져오는데 실패했습니다.");
         }
       });
-  }, [movieId]);
+  }, [movieId, userFrom]);
   return (
     <FavoriteButtonContainer>
       <Button type="primary" ghost onClick={onClickFavorite}>
