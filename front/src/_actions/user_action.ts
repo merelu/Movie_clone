@@ -28,6 +28,7 @@ export const logInUser = createAsyncThunk(
 
 export const logOutUser = createAsyncThunk("users/logout", async () => {
   const response = await axios.get("/api/users/logout");
+  
   return response.data;
 });
 
